@@ -75,6 +75,7 @@ ZSH_THEME_GIT_PROMPT_UNTRACKED="%F{190]✭%f"
 [[ -n "$ZSH_POWERLINE_SHOW_USER" ]]             || ZSH_POWERLINE_SHOW_USER=true
 [[ -n "$ZSH_POWERLINE_SHOW_IP" ]]               || ZSH_POWERLINE_SHOW_IP=true
 [[ -n "$ZSH_POWERLINE_SHOW_OS" ]]               || ZSH_POWERLINE_SHOW_OS=true
+[[ -n "$ZSH_POWERLINE_SHOW_VIRTUALENV" ]]               || ZSH_POWERLINE_SHOW_VIRTUALENV=true
 [[ -n "$ZSH_POWERLINE_SHOW_TIME" ]]             || ZSH_POWERLINE_SHOW_TIME=true
 [[ -n "$ZSH_POWERLINE_SINGLE_LINE" ]]           || ZSH_POWERLINE_SINGLE_LINE=false
 [[ -n "$ZSH_POWERLINE_SHOW_GIT_STATUS" ]]       || ZSH_POWERLINE_SHOW_GIT_STATUS=true
@@ -127,6 +128,17 @@ fi
 # OS logo
 if [ $ZSH_POWERLINE_SHOW_OS = true ]; then
 	PROMPT="${PROMPT}${FG_COLOR_BASE3}${BG_COLOR_BASE02}${PADDING}${LOGO}"
+	PADDING=' '
+fi
+
+# virtualenv
+function virtualenv_info {
+    [ $VIRTUAL_ENV ] && echo '['`basename $VIRTUAL_ENV`']'
+}
+
+if [ $ZSH_POWERLINE_SHOW_VIRTUALENV = true ]; then
+    VENV_PROMPT='$(virtualenv_info)'
+    PROMPT="${PROMPT}${FG_COLOR_MAGENTA}${BG_COLOR_BASE02}${PADDING}${VENV_PROMPT}"
 	PADDING=' '
 fi
 
