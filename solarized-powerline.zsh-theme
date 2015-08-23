@@ -95,8 +95,8 @@ fi
 
 # hostname
 if [ $ZSH_POWERLINE_SHOW_IP = true ]; then
-    if [ "$(echo $IP | grep 200)" = "" ]; then
     IP=`curl -si --max-time 2 http://ipecho.net/plain`
+    if [ "$(echo $IP | grep 200)" = "" ]; then
         # no network connection, use hostname
         IP="%m"
     else
@@ -108,6 +108,13 @@ if [ $ZSH_POWERLINE_SHOW_IP = true ]; then
 	fi
     PROMPT="${PROMPT}${FG_COLOR_VIOLET}${BG_COLOR_BASE3}${PADDING}${IP}"
 	PADDING=' '
+else
+    IP="%m"
+    if [ $ZSH_POWERLINE_SHOW_USER = true ]; then
+	PROMPT="${PROMPT}${FG_COLOR_GREEN}${BG_COLOR_BASE3} at"
+    fi
+    PROMPT="${PROMPT}${FG_COLOR_VIOLET}${BG_COLOR_BASE3}${PADDING}${IP}"
+    PADDING=' '
 fi
 # arrow symbol for username and ip/host
 if [ $ZSH_POWERLINE_SHOW_USER = true ] || [ $ZSH_POWERLINE_SHOW_IP = true ]; then
